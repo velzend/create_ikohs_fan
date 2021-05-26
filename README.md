@@ -9,12 +9,12 @@ The remote control operates wireless (I have not gathered any specs).
 Wireless only supports 2.4GHz.
 
 # Major disappointment: state not updated
-The state is does not match/ is not updated when remote, and app (wireless) are both used. For example, if you turn on the fan using the CREATE app (or any Tuya compatible app) and you turn off the fan using the remote control the state is not updated, and the app still asumes the fan is turned on. The broadcasted messages of the fan confirms state confirms this.
+The state does not match/ is not updated when remote, and app (wireless) are both used. For example, if you turn on the fan using the CREATE app (or any Tuya compatible app) and you turn off the fan using the remote control the state is not updated, and the app still asumes the fan is turned on. The broadcasted messages (with state information) by the fan confirms this.
 
-Most equipment around the house is operated and automated using Home-Assistant. The fan not reporting the correct state if the remote control is also used is not workable.
+Most equipment around the house is operated and automated using Home-Assistant. The fan not reporting the correct state if the remote control is also used is not workable. 
 
 # Disappointment: Light too bright and warm light could be warmer
-We use the fan in the master bedroom, and the minimum brightness level is too bright. The warm color mode is not warm which I expected the color temperature to be around 2400K. If I guess I think the warm color temperature is around 3500K and white 6000K (Kelvin).
+We have installed the fan in the master bedroom, and the minimum brightness level is too bright. The warm color mode is not warm enough which I expected the color temperature to be around 2400K. If I guess the warm color temperature is around 3500K and white 6000K (Kelvin).
 
 # Too bad: the beep cannot be disabled
 Every action is acknowlegded with a short, soft beep which is annoying and cannot be disabled.
@@ -38,4 +38,5 @@ Key value mappings:
 
 What tools I used and how I added the fan to home-assistant to be continued.
 
+Good places to start are:
 https://github.com/rospogrigio/localtuya
