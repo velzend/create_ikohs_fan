@@ -37,3 +37,5 @@ Key value mappings:
 
 
 What tools I used and how I added the fan to home-assistant to be continued.
+
+https://github.com/rospogrigio/localtuya
