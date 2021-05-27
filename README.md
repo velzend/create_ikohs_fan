@@ -19,6 +19,28 @@ We have installed the fan in the master bedroom, and the minimum brightness leve
 # Too bad: the beep cannot be disabled
 Every action is acknowlegded with a short, soft beep which is annoying and cannot be disabled.
 
+# Official answer from CREATE support
+
+I shared this page with CREATE support and below the answer (sorry the answer in Dutch).
+```
+​Goedemiddag,
+
+Dank u voor uw bericht.
+Wij betreuren het dat het geluidssignaal dat bij elke actie wordt afgespeeld niet kan worden gedempt, het klinkt zoals standaard.
+Wat betreft de App status die geen actie van de afstandsbediening laat zien, onze excuses als dit ongemak veroorzaakt, maar dit is normaal en duidt niet op een anomalie in het product. Houd er rekening mee dat elke actie die via de app wordt uitgevoerd, de opdracht correct aan het product zal geven, zelfs als de vorige actie die via de afstandsbediening of de TUYA SMART app werd uitgevoerd, niet op de app werd weergegeven.
+Als er nog iets is waarmee we u kunnen helpen, aarzel dan niet om contact met ons op te nemen.
+Met vriendelijke groet.
+ 
+Julian B.
+Customer Satisfaction 
+CREATE
+```
+
+I think this concludes I will need to design my own custom PCB for the fan, and light.
+If time allows let me check if I can find other enthousiasts that reverse enginered the remote or check myself how the remote works (like the frequencies, rolling codes, protocol, etc.).
+Check the requirements of the motor controller and LED driver.
+
+
 # Overview of DPS
 
 Sample broadcast message:
