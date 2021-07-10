@@ -60,5 +60,18 @@ Key value mappings:
 
 What tools I used and how I added the fan to home-assistant to be continued.
 
+This evening I upgraded Home-Assistant to 2021.7.2 and found some other bugs. 
+If you toggle the ceiling built-in lamp off and on (also using the app that is supplied from the vendor) it cycles through the different color temperatures: warm-light, warm-white-light, white-light.
+
+The control value with ID 23 keeps the same value, only updating the color temperature from the app seems to affect the color temperature. 
+The only downside in the app is that the active color temperature cannot be selected again.
+
+I also found that sending multiple updates in one payload or asynchronous to the fan is not supported.
+The only option is to send events sequential (one-by-one).
+Another finding the device current connection handling is limited it seems it only allows 3 concurrent connections. 
+
+On the home-assistant side, I tweaked the fan integration of localtuya and created a custom card, updates will follow soon.
+I will raise a bug report regarding the color temperature issue, keep you updated.
+
 Good places to start are:
 https://github.com/rospogrigio/localtuya
