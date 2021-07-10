@@ -51,7 +51,7 @@ DPS: {'20': False, '23': 0, '60': False, '62': 1, '63': 'forward', '64': 0}
 Key value mappings:
  - key: 20 is used for the light if `False` the light is off and if `True` the light is on
  - key: 22 is used for the light brightness, value between `0` and `1000`
- - key: 23 is used for the light color temperature if `0` the light is warm, if `500` the light is Warm-White and if `1000` the light is White
+ - key: 23 is used for the light color temperature if `1000` the light is warm, if `500` the light is Warm-White and if `0` the light is White
  - key: 60 is used for the fan if `False` the fan is off and if `True` the fan is on
  - key: 62 is used for speed control, value between `1` and `6`
  - key: 63 is used for fan rotation direction, values are `forward` or `reverse`
