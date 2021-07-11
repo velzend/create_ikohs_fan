@@ -40,11 +40,135 @@ I think this concludes I will need to design my own custom PCB for the fan, and 
 If time allows let me check if I can find other enthousiasts that reverse enginered the remote or check myself how the remote works (like the frequencies, rolling codes, protocol, etc.).
 Check the requirements of the motor controller and LED driver.
 
+# Annoying: the color temperature does not reflect/ cannot be set correctly
+
+I upgraded Home-Assistant to 2021.7.2 and while tweaking the LocalTuya custom_component, and a custom card I found some other bugs. 
+If you toggle the ceiling built-in lamp off and on (also using the app that is supplied from the vendor) it cycles through the different color temperatures: warm-light, warm-white-light, white-light.
+
+The DPS control value with ID 23 keeps the same value, only updating the color temperature from the app seems to affect the color temperature. But after testing this more also this does not seems to be valid/ work.
+
+I will raise a bug report regarding the color temperature issue, keep you updated.
+
+Small code snippet, to show the color temperature does not work as expected.
+```python
+import tinytuya
+import time
+
+# DPS: {'20': False, '23': 0, '60': False, '62': 1, '63': 'forward', '64': 0}
+# 20 used for the light if 'False' the light is off and if 'True' the light is on
+# 22 used for the light brightness, value between 0 and 1000
+# 23 used for the light color temperature if 1000 the light is warm, if 500 the light is Warm-White and if 0 the light is White
+# 60 used for the fan if 'False' the fan is off and if 'True' the fan is on
+# 62 used for speed control, value between 1 and 6
+# 63 used for fan rotation direction, values are forward or reverse
+# 64 is unknown
+
+d = tinytuya.Device('DEVICE_ID_HERE', 'IP_ADDRESS_HERE', 'LOCAL_KEY_HERE')
+d.set_version(3.3)
+
+print(d.status())
+
+print('first turn the lamp off')
+d.set_value('20', False)
+print(d.status())
+time.sleep(2)
+
+print('turn the lamp on')
+d.set_value('20', True)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature to white')
+# the lamp will turn off and on, but with the next color temperature 
+# if the color temperature was 1000 (warm)       it will change to    0 (white)
+# if the color temperature was    0 (warm)       it will change to  500 (warm-white)
+# if the color temperature was  500 (warm-white) it will change to 1000 (warm)
+# but the value of key 23 will stay 1000 (warm)
+d.set_value('23', 0)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature to warm-white')
+# the lamp will turn off and on, but with the next color temperature 
+d.set_value('23', 500)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature to warm')
+# the lamp will turn off and on, but with the next color temperature 
+d.set_value('23', 1000)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature to warm-white')
+# the lamp will turn off and on, but with the next color temperature 
+d.set_value('23', 500)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature to warm')
+# this updates the state key 23 with value 1000 and turns the lamp on,
+# but the lamp decides to select a random color between [0 (white), 500 (warm-white), 1000 (warm)] 
+# if the previous value was not 1000 (warm-white) it turns warm-white.
+d.set_value('23', 1000)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature again to warm')
+# the lamp will turn off and on, but with the next color temperature 
+d.set_value('23', 1000)
+print(d.status())
+time.sleep(2)
+
+print('set the lamp color temperature once more to warm')
+# the lamp will turn off and on, but with the next color temperature 
+d.set_value('23', 1000)
+time.sleep(2)
+
+print('now lets turn off the lamp, and turn it on again')
+# the lamp will turn on but with the next color temperature
+d.set_value('20', False)
+time.sleep(2)
+d.set_value('20', True)
+time.sleep(2)
+
+print('now lets turn off the lamp, and turn it on again')
+d.set_value('20', False)
+time.sleep(2)
+d.set_value('20', True)
+time.sleep(2)
+
+print('now lets turn off the lamp, and turn it on again')
+d.set_value('20', False)
+time.sleep(2)
+d.set_value('20', True)
+time.sleep(2)
+
+print('turn the lamp off')
+# lamp turns off, nothing special
+d.set_value('20', False)
+time.sleep(2)
+
+print('turn the lamp off again')
+# lamp stays off, device beeps, nothing happens
+d.set_value('20', False)
+time.sleep(2)
+```
+
+# limitation: only 2 or 3 concurrent connections/ sessions seem possible
+Another finding the device current connection handling is limited to it seems 3 concurrent connections/ sessions.
+I also found that sending multiple updates in one payload or asynchronous to the fan is not supported.
+The only option is to send events sequential (one-by-one).
+
+If you have more details on this topic, feel free to share in the discussions.
+
+# Home-Assistant localtuya and custom card
+On the home-assistant side, I tweaked the fan integration of localtuya and created a custom card, updates will follow soon.
 
 # Overview of DPS
 
 Sample broadcast message:
-```
+```json
 DPS: {'20': False, '23': 0, '60': False, '62': 1, '63': 'forward', '64': 0}
 ```
 
@@ -58,20 +182,6 @@ Key value mappings:
  - key: 64 is unknown
 
 
-What tools I used and how I added the fan to home-assistant to be continued.
-
-This evening I upgraded Home-Assistant to 2021.7.2 and found some other bugs. 
-If you toggle the ceiling built-in lamp off and on (also using the app that is supplied from the vendor) it cycles through the different color temperatures: warm-light, warm-white-light, white-light.
-
-The control value with ID 23 keeps the same value, only updating the color temperature from the app seems to affect the color temperature. 
-The only downside in the app is that the active color temperature cannot be selected again.
-
-I also found that sending multiple updates in one payload or asynchronous to the fan is not supported.
-The only option is to send events sequential (one-by-one).
-Another finding the device current connection handling is limited it seems it only allows 3 concurrent connections. 
-
-On the home-assistant side, I tweaked the fan integration of localtuya and created a custom card, updates will follow soon.
-I will raise a bug report regarding the color temperature issue, keep you updated.
-
 Good places to start are:
+https://pypi.org/project/tinytuya
 https://github.com/rospogrigio/localtuya
