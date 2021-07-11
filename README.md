@@ -163,12 +163,15 @@ The only option is to send events sequential (one-by-one).
 If you have more details on this topic, feel free to share in the discussions.
 
 # Home-Assistant localtuya and custom card
+
+![alt text](_static/images/hass_custom_card_ikohs_fan.png "Home-Assisant custom card for fan")
+
 On the home-assistant side, I tweaked the fan integration of localtuya and created a custom card, updates will follow soon.
 
 # Overview of DPS
 
 Sample broadcast message:
-```json
+```python
 DPS: {'20': False, '23': 0, '60': False, '62': 1, '63': 'forward', '64': 0}
 ```
 
