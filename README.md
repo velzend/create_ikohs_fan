@@ -168,6 +168,28 @@ If you have more details on this topic, feel free to share in the discussions.
 
 On the home-assistant side, I tweaked the fan integration of localtuya and created a custom card, updates will follow soon.
 
+# Static IP address and drop Internet connectivity
+
+I drop all Internet connectivity for the ceiling fan. To ensure the device firmware is not updated (I like to be in control and manage this myself), and it disables all operations via public Internet using the Tuya cloud. I use Home-Assistant for this. 
+
+Actions on your local network can still be done in the same subnet. 
+
+This goes beyond the scope of the ceiling fan, but I own router and access points from Mikrotik, and the specific configuration to implement this is/ could be:
+Note: I manually changed the second half of the MAC address, this is not some kind of wildcard ;-)
+
+```
+# assign static DHCP address, not required for dropping Internet connectivity
+/ip dhcp-server lease
+add address=10.10.120.207 mac-address=10:D5:61:xx:xx:xx server=server120
+
+# drop all connectivity
+/ip firewall filter
+add action=drop chain=forward comment="block Internet connectivity for the CREATE IKOHS (Tuya) ceiling fan" src-mac-address=10:D5:61:xx:xx:xx
+```
+
+Every router brand has it's own way of configuring DHCP and Firewall rules.
+Be careful and protect your network if you leave Internet access enabled.
+
 # Overview of DPS
 
 Sample broadcast message:
