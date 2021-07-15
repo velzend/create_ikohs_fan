@@ -49,6 +49,19 @@ The DPS control value with ID 23 keeps the same value, only updating the color t
 
 I will raise a bug report regarding the color temperature issue, keep you updated.
 
+And I received the official answer:
+```
+Hello,
+We are contacting you in regards to the incident case opened form your side.
+Please not that the modifications done from the remote or switch do not directly reflect in the APP.
+It is also normal that the different brightnesses cycle while turning on/off the fan.
+If you have further doubts we will be happy to help.
+Kind regards,
+Sarah L.
+Customer Satisfaction
+CREATE
+```
+
 Small code snippet, to show the color temperature does not work as expected.
 ```python
 import tinytuya
