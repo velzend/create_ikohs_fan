@@ -49,6 +49,10 @@ The DPS control value with ID 23 keeps the same value, only updating the color t
 
 I will raise a bug report regarding the color temperature issue, keep you updated.
 
+I shared the video below:
+
+[![IMAGE_ALT](https://img.youtube.com/vi/RsUFU2g8UfI/0.jpg)](https://www.youtube.com/watch?v=RsUFU2g8UfI)
+
 And I received the official answer:
 ```
 Hello,
