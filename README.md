@@ -17,9 +17,9 @@ Most equipment around the house is operated and automated using Home-Assistant. 
 We have installed the fan in the master bedroom, and the minimum brightness level is too bright. The warm color mode is not warm enough which I expected the color temperature to be around 2400K. If I guess the warm color temperature is around 3500K and white 6000K (Kelvin).
 
 # Too bad: the beep cannot be disabled
-Every action is acknowlegded with a short, soft beep which is annoying and cannot be disabled.
+Every action is acknowlegded with a short, soft beep which is annoying and cannot be disabled via software.
 
-# Official answer from CREATE support
+## Official answer from CREATE support
 
 I shared this page with CREATE support and below the answer (sorry the answer in Dutch).
 ```
@@ -39,6 +39,11 @@ CREATE
 I think this concludes I will need to design my own custom PCB for the fan, and light.
 If time allows let me check if I can find other enthousiasts that reverse enginered the remote or check myself how the remote works (like the frequencies, rolling codes, protocol, etc.).
 Check the requirements of the motor controller and LED driver.
+
+## Removing the buzzer from the control unit 
+It is possible to remove the physical buzzer from the control unit, **permanently** disabling the beep (at your own risk!). To remove the buzzer, grab it with some pliers and gently pull it straight off.
+
+![Disable IKOHS Windcalm beep](https://user-images.githubusercontent.com/36260050/219869088-0144d687-15c1-4891-96b1-de2d302f6a07.jpg)
 
 # Annoying: the color temperature does not reflect/ cannot be set correctly
 
